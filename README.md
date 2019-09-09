@@ -3,6 +3,13 @@
 
 ### *Common Commands*
 ```
+# list running containers
+docker container ls
+
+# list all containers
+docker container ls -a
+
+
 # stop all containers
 docker stop $(docker ps -a -q)
 

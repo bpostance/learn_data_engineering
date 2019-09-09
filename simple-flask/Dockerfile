@@ -6,7 +6,7 @@ MAINTAINER Ben Postance "benpostance@gmail.com"
 
 # update linux, install
 RUN apt-get update -y && \
-    apt-get install -y nginx uwsgi uwsgi-plugin-python
+    apt-get install -y nginx uwsgi uwsgi-plugin-python3
 
 # create conda environment
 RUN conda create -n env python=3.6 pip
