@@ -18,13 +18,13 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 # make directories on container and change_directory
-RUN mkdir docker_app docker_app/app && cd docker_app
+RUN mkdir docker_app docker_app/app
 
 # copy files to container
 COPY ./requirements.txt ./docker_app
 COPY ./app/app.py ./docker_app/app
 COPY ./nginx.conf /etc/nginx/nginx.conf
-copy ./launcher.sh ./docker_app
+COPY ./launcher.sh ./docker_app
 
 # install requirements
 RUN pip install -r ./docker_app/requirements.txt
@@ -40,4 +40,4 @@ RUN adduser --disabled-password --gecos '' nginx\
   
 # run commands
 #CMD ["python", "./docker_app/app/app.py"]
-ENTRYPOINT [ "/bin/bash", "/docker_app/launcher.sh"]
+ENTRYPOINT [ "./bin/bash", "./docker_app/launcher.sh"]
