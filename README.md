@@ -1,7 +1,17 @@
-# Examples and demo's of Docker containers
+# Examples of common applications in Docker containers
+ - conda-flask-api
+```
+│
+├── conda-flask-api
+│   ├ Dockerfile          <- Dockerfile instructions to build the container
+│   ├ docker.psq          <- powershell commands to build & run the Dockerfile 
+│   ├ env.yml             <- conda environment
+│   ├ serve.sh            <- script to serve the app using gunicorn
+│   ├── app
+│   │   ├── flask-api.py  <- application file
+```
 
-
-### *Common Commands*
+##### *List of common Docker commands*
 ```
 # list running containers
 docker container ls
