@@ -45,3 +45,6 @@ docker rmi <image_id>
 # Purge All Unused or Dangling Images, Containers, Volumes, and Networks
 docker system prune
 ```
+
+ - https://vsupalov.com/what-is-gunicorn/
+ - https://medium.com/@mtngt/docker-flask-a-simple-tutorial-bbcb2f4110b5

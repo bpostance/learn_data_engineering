@@ -1,4 +1,4 @@
-# pull image
+# pull the image from docker hub
 FROM continuumio/miniconda3:latest
 
 # adds metadata to an image
