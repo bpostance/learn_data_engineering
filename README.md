@@ -1,5 +1,5 @@
 # Examples of common applications in Docker containers
- - conda-flask-api
+#### *conda-flask-api* - a single container API
 ```
 │
 ├── conda-flask-api
@@ -9,7 +9,17 @@
 │   ├ serve.sh            <- script to serve the app using gunicorn
 │   ├── app
 │   │   ├── flask-api.py  <- application file
+
 ```
+
+#### *docker-compose* - a multi-container applications
+```
+│
+├── docker-compose
+│   ├ dockerfile-compose.yml          <- Docker-compose.yml instructions to build multiple containers
+
+```
+
 
 ##### *List of common Docker commands*
 ```
