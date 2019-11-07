@@ -45,7 +45,7 @@ services:
         
 # bokeh application
   bokeh:
-    build: .
+    build: ./bokeh
     container_name: wine-bokeh
     ports:
       - "5000:5000"

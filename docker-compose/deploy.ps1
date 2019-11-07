@@ -3,10 +3,10 @@
 $env:DOCKER_HOST='tcp://host:2375'
 
 # compose in detached mode
-$ docker-compose up -d
+docker-compose up -d
 
 # force rebuild
-#$ docker-compose up --build
+#docker-compose up --force-recreate --build
 
 # stop
-$ docker-compose down
+docker-compose down
