@@ -15,4 +15,4 @@ psql -h localhost -U postgres -d postgres
 
 ## issues;
   1. [docker-compose postgres, server fails to start when mounting Windows dir for postgres/data](https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/24)
-    - however a docker volume works fine.   
+    - however a docker volume works fine. We can preserve the data on docker, just no on linux:windows file systems.
