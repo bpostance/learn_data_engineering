@@ -12,18 +12,23 @@ SHELL ["/bin/bash", "-c"]
 # Set WORKDIR - the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile
 WORKDIR /home/working-dir
 
-# COPY - copies files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
+# ADD - copies files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
 ADD manager-py ./manager-py
 
-# chmod - modifies the bokeh-entrypoint.sh file 
-# so it can be recognized as an executable file.
-COPY bokeh-entrypoint.sh ./
-RUN chmod +x bokeh-entrypoint.sh
+# COPY DATA
+# you can download the data from kaggle: 
+# https://www.kaggle.com/zynicide/wine-reviews
+COPY wine-reviews.zip ./data
+
+# unzip
+RUN unzip ./datawine-reviews.zip && \
+	rm ./datawine-reviews.zip
 
 # TIP!
 # print directories if you need to debug
-#RUN pwd && ls -a
-#RUN ls ./manager-py
+RUN pwd && ls -a
+RUN ls ./manager-py
+
 
 # Update Env, Install utils
 RUN apt-get update
