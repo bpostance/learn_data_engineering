@@ -1,0 +1,10 @@
+name: base
+channels:
+- defaults
+dependencies:
+- python=3.7
+- bokeh
+- numpy
+- sqlalchemy
+- pandas
+- pyodbc
