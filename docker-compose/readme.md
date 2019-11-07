@@ -14,9 +14,9 @@ psql -h localhost -p 5433 -U postgres -d postgres
 ```
 
 ***postgres issues***
-  1. [docker-compose postgres, server fails to start when mounting Windows dir for postgres/data](https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/24)
-    - however a docker volume works fine. We can preserve the data on docker, just no on linux:windows file systems.
-	
+ 1. [docker-compose postgres, server fails to start when mounting Windows dir for postgres/data](https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/24)
+  - however a docker volume works fine. We can preserve the data on docker, just no on linux:windows file systems.
+ 2. [docker-compose postgres build does not notice .env variables](https://github.com/docker-library/postgres/issues/537)
 	
 ## Elasticsearch
 
