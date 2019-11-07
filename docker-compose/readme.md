@@ -4,15 +4,31 @@
  - [example of pull & build ](https://docs.docker.com/compose/reference/pull/)
  - [name containers](https://stackoverflow.com/a/35662191/4538066)
  
-## docker-postgres
+## Postgres
   - [dont install, docker](https://hackernoon.com/dont-install-postgres-docker-pull-postgres-bee20e200198)
   - [postgres docker files](https://github.com/docker-library/postgres/blob/cad3d8b1f7ee31f3592c2911e014e81b9b2a1c8d/10/alpine/Dockerfile)
   
 ```
-#connect via
-psql -h localhost -U postgres -d postgres
+# connect to the db 
+psql -h localhost -p 5433 -U postgres -d postgres
 ```
 
-## issues;
+***postgres issues***
   1. [docker-compose postgres, server fails to start when mounting Windows dir for postgres/data](https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/24)
     - however a docker volume works fine. We can preserve the data on docker, just no on linux:windows file systems.
+	
+	
+## Elasticsearch
+
+```
+# connect to elastic @
+http://localhost:9200/
+```
+
+
+## Bokeh Application
+
+```
+# connect to bokeh-application @
+http://localhost:5000/
+```
