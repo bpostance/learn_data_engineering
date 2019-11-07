@@ -7,3 +7,6 @@ $ docker-compose up -d
 
 # force rebuild
 #$ docker-compose up --build
+
+# stop
+$ docker-compose down
