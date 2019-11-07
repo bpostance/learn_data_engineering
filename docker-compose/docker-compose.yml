@@ -8,7 +8,7 @@ services:
     
     # specify port mapping (host:container)
     ports:
-      - "5433:5435/tcp"
+      - "5433:5432/tcp"
     
     # volumes are created at build if they dont already exists
     # existing volumes are added to provide data persistance
@@ -34,7 +34,7 @@ services:
     # set env variables
     environment:
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1000m"
       - discovery.type=single-node
    
     # set usage-limits

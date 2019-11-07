@@ -15,12 +15,19 @@ WORKDIR /home/working-dir
 # COPY - copies files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
 ADD simple-app ./simple-app
 
-# chmod - modifies the bokeh-entrypoint.sh file so it can be recognized as an executable file.
+# chmod - modifies the bokeh-entrypoint.sh file 
+# so it can be recognized as an executable file.
 COPY bokeh-entrypoint.sh ./
 RUN chmod +x bokeh-entrypoint.sh
 
-RUN pwd && ls -a
-RUN ls ./simple-app
+# DOS line endings are not compatible with Linux
+# use sed to remove them
+RUN sed -i 's/^M$//' bokeh-entrypoint.sh
+
+# TIP!
+# print directories if you need to debug
+#RUN pwd && ls -a
+#RUN ls ./simple-app
 
 # Update Env, Install utils
 RUN apt-get update
