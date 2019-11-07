@@ -32,3 +32,6 @@ http://localhost:9200/
 # connect to bokeh-application @
 http://localhost:5000/
 ```
+
+***bokeh issues***
+ - when working across operating systems, ensure to remove DOS/UNIX line endings.
