@@ -18,6 +18,8 @@ ADD manager-py ./manager-py
 # COPY DATA
 # you can download the data from kaggle: 
 # https://www.kaggle.com/zynicide/wine-reviews
+# OR from google
+# https://drive.google.com/file/d/1pqZvEIMKehdoiCNaob2HutHTdvCbtLub/view?usp=sharing
 COPY wine-reviews.zip ./data
 
 # unzip
