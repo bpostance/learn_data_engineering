@@ -41,4 +41,4 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc
 
 # Command 
-CMD [ "python", "./my_script.py" ]
+CMD [ "python", "./main.py" ]
