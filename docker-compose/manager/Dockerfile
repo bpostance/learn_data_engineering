@@ -29,18 +29,16 @@ RUN chmod +x ./manager-py/gdrive.sh && \
 
 RUN pwd && ls -a
 
-# move | unzip | remove | data
-RUN mkdir ./data && \
-    mv ./wine-reviews.zip ./data/wine-reviews.zip && \
-    unzip ./data/wine-reviews.zip && \
-	rm ./data/wine-reviews.zip
-
+# Data do: unzip | remove | move
+RUN unzip ./wine-reviews.zip && \
+    rm ./wine-reviews.zip
+    mkdir ./data && \
+    mv ./wine-reviews ./data/wine-reviews
+	
 # TIP!
 # print directories if you need to debug
-RUN pwd && ls -a
-RUN ls ./manager-py
 RUN ls ./data
-#RUN head ./data/winemag-data-130k-v2.csv
+RUN head ./data/winemag-data-130k-v2.csv
 
 # conda set-config and create environment based on .yml
 RUN conda env update --file ./manager-py/environment.yml
