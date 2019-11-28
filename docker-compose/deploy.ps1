@@ -6,7 +6,7 @@ $env:DOCKER_HOST='tcp://host:2375'
 docker-compose up -d
 
 # force rebuild
-#docker-compose up --force-recreate --build
+docker-compose up --force-recreate --build
 
 # stop
 docker-compose down
