@@ -26,15 +26,15 @@ RUN chmod +x ./manager-py/gdrive.sh && \
 # move | unzip | remove | data
 RUN mkdir data && \
     mv ./manager-py/wine-reviews.zip ./data && \
-    unzip ./wine-reviews.zip && \
-	rm ./wine-reviews.zip
+    unzip ./data/wine-reviews.zip && \
+	rm ./data/wine-reviews.zip
 
 # TIP!
 # print directories if you need to debug
 RUN pwd && ls -a
 RUN ls ./manager-py
 RUN ls ./data
-
+RUN head ./data/winemag-data-130k-v2.csv
 # Update Env, Install utils
 RUN apt-get update
 
