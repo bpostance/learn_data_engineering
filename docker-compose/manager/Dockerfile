@@ -31,7 +31,7 @@ RUN pwd && ls -a
 
 # Data do: unzip | remove | move
 RUN unzip ./wine-reviews.zip && \
-    rm ./wine-reviews.zip
+    rm ./wine-reviews.zip && \
     mkdir ./data && \
     mv ./wine-reviews ./data/wine-reviews
 	
