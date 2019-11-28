@@ -36,11 +36,8 @@ RUN unzip ./wine-reviews.zip && \
     mv ./wine-reviews ./data/wine-reviews
 	
 # TIP!
-# print directories if you need to debug
-RUN ls -a
-RUN ls ./data
-RUN ls ./data/wine-reviews
-RUN head ./data/winemag-data-130k-v2.csv
+# print directories if you need to debugsys
+RUN head ./data/wine-reviews/winemag-data-130k-v2.csv
 
 # conda set-config and create environment based on .yml
 RUN conda env update --file ./manager-py/environment.yml
