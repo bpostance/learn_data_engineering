@@ -29,7 +29,6 @@ RUN unzip ./datawine-reviews.zip && \
 RUN pwd && ls -a
 RUN ls ./manager-py
 
-
 # Update Env, Install utils
 RUN apt-get update
 
