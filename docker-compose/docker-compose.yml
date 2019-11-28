@@ -49,17 +49,11 @@ services:
     container_name: wine-bokeh
     ports:
       - "5001:5000"
-    deploy:
-      mode: replicated
-      replicas: 2
   
 # manager application
   manager:
     build: ./manager
     container_name: wine-manager
-    deploy:
-      mode: replicated
-      replicas: 2
 
 # volumes to create
 # by specifying names here
