@@ -15,16 +15,18 @@ WORKDIR /home/working-dir
 # ADD - copies files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
 ADD manager-py ./manager-py
 
-# COPY DATA
+# RUN bash to curl the data
 # you can download the data from kaggle: 
 # https://www.kaggle.com/zynicide/wine-reviews
 # OR from google
 # https://drive.google.com/file/d/1pqZvEIMKehdoiCNaob2HutHTdvCbtLub/view?usp=sharing
-COPY wine-reviews.zip ./data
+RUN ./manager-py/gdrive.sh
 
-# unzip
-RUN unzip ./datawine-reviews.zip && \
-	rm ./datawine-reviews.zip
+# move | unzip | remove | data
+RUN mkdir data && \
+    mv ./manager-py/wine-reviews.zip ./data && \
+    unzip ./wine-reviews.zip && \
+	rm ./wine-reviews.zip
 
 # TIP!
 # print directories if you need to debug
