@@ -1,0 +1,2 @@
+# use linux line endings to avoid cross-platform issues
+text eol=lf
