@@ -53,6 +53,14 @@ services:
       mode: replicated
       replicas: 2
   
+# manager application
+  manager:
+    build: ./manager
+    container_name: wine-manager
+    deploy:
+      mode: replicated
+      replicas: 2
+
 # volumes to create
 # by specifying names here
 # docker will re-use these local 

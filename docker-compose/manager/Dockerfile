@@ -28,6 +28,7 @@ RUN unzip ./datawine-reviews.zip && \
 # print directories if you need to debug
 RUN pwd && ls -a
 RUN ls ./manager-py
+RUN ls ./data
 
 # Update Env, Install utils
 RUN apt-get update
