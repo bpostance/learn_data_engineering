@@ -27,7 +27,7 @@ RUN pwd && ls -a
 
 # move | unzip | remove | data
 RUN mkdir ./data && \
-    mv ./manager-py/wine-reviews.zip ./data/wine-reviews.zip && \
+    mv ./wine-reviews.zip ./data/wine-reviews.zip && \
     unzip ./data/wine-reviews.zip && \
 	rm ./data/wine-reviews.zip
 
