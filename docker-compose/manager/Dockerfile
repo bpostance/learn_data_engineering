@@ -9,6 +9,10 @@ LABEL description="A Docker container to run a simple python script"
 ## Override the default shell (not supported on older docker, prepend /bin/bash -c )
 SHELL ["/bin/bash", "-c"]
 
+# Update Env, Install utils
+RUN apt-get update && \
+    apt-get install zip unzip
+
 # Set WORKDIR - the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile
 WORKDIR /home/working-dir
 
@@ -37,9 +41,6 @@ RUN pwd && ls -a
 RUN ls ./manager-py
 RUN ls ./data
 #RUN head ./data/winemag-data-130k-v2.csv
-
-# Update Env, Install utils
-RUN apt-get update
 
 # conda set-config and create environment based on .yml
 RUN conda env update --file ./manager-py/environment.yml
