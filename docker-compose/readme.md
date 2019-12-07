@@ -1,5 +1,12 @@
 # Multi-Container Application with [docker-compose](https://docs.docker.com/compose/)
 
+# What?
+
+# Data set
+ - [wine-reviews](https://www.kaggle.com/zynicide/wine-reviews#winemag-data_first150k.csv)
+
+
+## Links
  - [getting started](https://docs.docker.com/compose/gettingstarted/)
  - [example of pull & build ](https://docs.docker.com/compose/reference/pull/)
  - [name containers](https://stackoverflow.com/a/35662191/4538066)
