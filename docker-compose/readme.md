@@ -5,6 +5,12 @@
  - [name containers](https://stackoverflow.com/a/35662191/4538066)
  - [how to use multiple "Dockerfile"](https://nickjanetakis.com/blog/docker-tip-10-project-structure-with-multiple-dockerfiles-and-docker-compose)
 
+
+ - [Docker use "depends_on" to control container running order](https://docs.docker.com/compose/compose-file/#dependson)
+
+ - [Executing PostgreSQL via SQLalchemy](https://www.compose.com/articles/using-postgresql-through-sqlalchemy/)
+
+
 ### description of containers in this application
 
 #### Postgres
