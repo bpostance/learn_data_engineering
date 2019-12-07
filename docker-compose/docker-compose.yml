@@ -42,18 +42,23 @@ services:
       memlock:
         soft: -1
         hard: -1
-        
-# bokeh application
-  bokeh:
-    build: ./bokeh
-    container_name: wine-bokeh
-    ports:
-      - "5001:5000"
   
 # manager application
   manager:
     build: ./manager
+    depends_on:
+     - db
+     - elastic
     container_name: wine-manager
+
+# bokeh application
+  bokeh:
+    build: ./bokeh
+    depends_on:
+     - manager
+    container_name: wine-bokeh
+    ports:
+      - "5001:5000"
 
 # volumes to create
 # by specifying names here
