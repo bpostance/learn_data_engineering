@@ -16,7 +16,7 @@ RUN apt-get update && \
 # Set WORKDIR - the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile
 WORKDIR /home/working-dir
 
-# ADD - copies files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
+# ADD - copies files and directories from <src> and adds them to  the filesystem of the container at <dest>.
 ADD manager-py ./manager-py
 
 # RUN bash to curl the data
