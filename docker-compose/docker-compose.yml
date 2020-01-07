@@ -47,7 +47,7 @@ services:
   manager:
     build: ./manager
     depends_on:
-     - db
+     - pgdb
      - elastic
     container_name: wine-manager
 
