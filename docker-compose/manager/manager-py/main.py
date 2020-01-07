@@ -31,7 +31,7 @@ except:
 conn.close()
 
 # read data 
-df = pd.read_csv('./data/wine-reviews/winemag-data-130k-v2.csv',index_col=0)
+df = pd.read_csv('/home/working-dir/data/wine-reviews/winemag-data-130k-v2.csv',index_col=0)
 
 # push data to db
 df.to_sql(name='wine_reviews',

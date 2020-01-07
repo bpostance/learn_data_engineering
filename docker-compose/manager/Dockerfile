@@ -32,6 +32,8 @@ RUN chmod +x ./manager-py/gdrive.sh && \
     mkdir ./data && \
     mv ./wine-reviews ./data/wine-reviews
 
+RUN ls -a /home/working-dir
+
 # conda set-config and create environment based on .yml
 RUN conda env update --file ./manager-py/environment.yml && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
