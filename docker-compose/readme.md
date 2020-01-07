@@ -8,6 +8,13 @@ An example of a multi-container application using docker-compose. The docker-com
 
 The kaggle [wine-reviews](https://www.kaggle.com/zynicide/wine-reviews#winemag-data_first150k.csv) dataset is used as an example as it include numeric and text data for statistical and or unstructured data mining, textual analysis, and natural language processing. 
 
+```
+# build and run docker-compose
+docker-compose up -d --build
+
+
+```
+
 ## References:
 ### docker-compose
  - [getting started with docker-compose](https://docs.docker.com/compose/gettingstarted/)
