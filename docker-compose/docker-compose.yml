@@ -2,7 +2,7 @@ version: '3'
 services:
 
 # postgres10 database
-  db:
+  pgdb:
     image: postgres:10
     container_name: wine-postgres
     

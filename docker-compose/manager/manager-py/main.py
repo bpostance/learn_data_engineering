@@ -18,7 +18,7 @@ def connect_to_postgres(server_string,db_name):
     return connection
 
 # create db on server
-server_string = "postgresql+psycopg2://postgres:postgres@localhost:5433"
+server_string = "postgresql+psycopg2://postgres:postgres@pgdb:5433"
 db_name = 'db'
 
 conn = connect_to_postgres(server_string,'')
