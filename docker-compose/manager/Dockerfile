@@ -25,19 +25,16 @@ ADD manager-py ./manager-py
 # OR from google
 # https://drive.google.com/file/d/1pqZvEIMKehdoiCNaob2HutHTdvCbtLub/view?usp=sharing
 RUN chmod +x ./manager-py/gdrive.sh && \
-    ./manager-py/gdrive.sh
-
-# Data do: unzip | remove | move
-RUN unzip ./wine-reviews.zip && \
+    ./manager-py/gdrive.sh && \
+    # Data do: unzip | remove | move
+    unzip ./wine-reviews.zip && \
     rm ./wine-reviews.zip && \
     mkdir ./data && \
     mv ./wine-reviews ./data/wine-reviews
 
 # conda set-config and create environment based on .yml
-RUN conda env update --file ./manager-py/environment.yml
-
-# set env variables
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+RUN conda env update --file ./manager-py/environment.yml && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc
 
 # Command 
