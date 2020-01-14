@@ -11,7 +11,8 @@ SHELL ["/bin/bash", "-c"]
 
 # Update Env, Install utils
 RUN apt-get update && \
-    apt-get install zip unzip
+    apt-get install zip unzip && \
+    apt-get clean
 
 # Set WORKDIR - the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile
 WORKDIR /home/working-dir
@@ -31,8 +32,6 @@ RUN chmod +x ./manager-py/gdrive.sh && \
     rm ./wine-reviews.zip && \
     mkdir ./data && \
     mv ./wine-reviews ./data/wine-reviews
-
-RUN ls -a /home/working-dir
 
 # conda set-config and create environment based on .yml
 RUN conda update -n base -c defaults conda && \
