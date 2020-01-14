@@ -19,7 +19,7 @@ def connect_to_postgres(server_string,db_name):
 
 try:
     # create db on server
-    server_string = "postgresql+psycopg2://postgres@pgdb"
+    server_string = "postgresql+psycopg2://postgres:postgres@localhost:5432"
     db_name = 'db'
 
     #conn = connect_to_postgres(server_string,'')
@@ -43,4 +43,5 @@ try:
 
     print('Upload Data Done')
 except Exception as error:
-    print('db fail')
+    print(error)
+    print('\n\ndb fail')
