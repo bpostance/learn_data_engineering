@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     # specify port mapping (host:container)
     ports:
-      - "5432:5432/tcp"
+            - "5433:5432/tcp"
     # volumes are created at build if they dont already exists
     # existing volumes are added to provide data persistance
     volumes:
@@ -18,8 +18,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      networks:
-        - winenet
+    networks:
+      - winenet
   # elasticsearch 6.4.3 instance
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
@@ -48,8 +48,9 @@ services:
      - elastic
     #container_name: wine-manager
     networks:
-      - winenet
-
+     - winenet
+    links:
+     - pgdb
   # bokeh application
   bokeh:
     build: ./bokeh
@@ -73,4 +74,4 @@ volumes:
 
 networks:
   winenet:
-    driver: bridge
+    driver: "bridge"
