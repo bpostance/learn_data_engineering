@@ -20,7 +20,7 @@ def connect_to_postgres(server_string,db_name):
 
 try:
     # create db on server
-    server_string = "postgresql+psycopg2://postgres@pgdb"
+    server_string = "postgresql+psycopg2://postgres:postgres@192.168.1.156:5433"
     db_name = 'db'
 
     #conn = connect_to_postgres(server_string,'')
