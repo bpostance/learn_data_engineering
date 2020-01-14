@@ -42,7 +42,6 @@ services:
     build: ./manager
     depends_on:
      - pgdb
-     - elasticsearch
 
   # bokeh application
   bokeh:

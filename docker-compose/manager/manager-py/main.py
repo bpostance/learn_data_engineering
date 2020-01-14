@@ -3,6 +3,7 @@
 """main.py: Populates database and elasticsearch with wine-data"""
 
 import os
+import time
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
@@ -34,12 +35,17 @@ try:
     # read data 
     df = pd.read_csv('/home/working-dir/data/wine-reviews/winemag-data-130k-v2.csv',index_col=0)
 
-    # push data to db
-    df.to_sql(name='wine_reviews',
-          con=connect_to_postgres(server_string,db_name),
-          index=False,
-          if_exists='replace',
-          chunksize=5000)
+    for attempt in [1,2,3]:
+        try:
+            # push data to db
+            df.to_sql(name='wine_reviews',
+                      con=connect_to_postgres(server_string,db_name),
+                      index=False,
+                      if_exists='replace',
+                      chunksize=5000)
+        except:
+            time.sleep(60)
+            print(f'try {attempt}: sleeping')
 
     print('Upload Data Done')
 except Exception as error:
