@@ -40,4 +40,4 @@ RUN conda env update --file ./manager-py/environment.yml && \
     echo "conda activate" >> ~/.bashrc
 
 # Command 
-CMD ["python", "/home/working-dir/manager-py/main.py" ]
+RUN python /home/working-dir/manager-py/main.py
