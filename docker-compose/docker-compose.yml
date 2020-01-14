@@ -1,10 +1,11 @@
 version: '3'
 services:
 
-# postgres10 database
+  # postgres10 database
   pgdb:
     image: postgres:10
     container_name: wine-postgres
+    restart: unless-stopped
     # specify port mapping (host:container)
     ports:
       - "5432:5432/tcp"
@@ -12,16 +13,17 @@ services:
     # existing volumes are added to provide data persistance
     volumes:
       - postgres_volume:/var/lib/postgresql/data
-    environment:
+    # env vars from .env 
+      environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    networks:
-      - wine-net
-# elasticsearch 6.4.3 instance
+    
+  # elasticsearch 6.4.3 instance
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
     container_name: wine-elastic
+    restart: unless-stopped
     ports:
       - "9200:9200"
     volumes:
@@ -30,33 +32,29 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx1000m"
       - discovery.type=single-node
-    networks:
-      - wine-net
-    # set usage-limits
     ulimits:
       memlock:
         soft: -1
         hard: -1
-  
-# manager application
+        
+  # manager application
   manager:
     build: ./manager
     depends_on:
      - pgdb
      - elastic
     container_name: wine-manager
-    networks:
-     - wine-net
-# bokeh application
+
+  # bokeh application
   bokeh:
     build: ./bokeh
+    restart: unless-stopped
     depends_on:
      - manager
     container_name: wine-bokeh
     ports:
       - "5001:5000"
-    networks:
-      - wine-net
+
 # volumes to create
 # by specifying names here
 # docker will re-use these local 
@@ -65,7 +63,3 @@ services:
 volumes:
   postgres_volume:
   es_volume:
-
-networks:
-  wine-net:
-      driver: bridge
