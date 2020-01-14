@@ -4,7 +4,7 @@ services:
   # postgres10 database
   pgdb:
     image: postgres:10
-    container_name: wine-postgres
+    #container_name: wine-postgres
     restart: unless-stopped
     # specify port mapping (host:container)
     ports:
@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     # env vars from .env 
-      environment:
+    environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -22,7 +22,7 @@ services:
   # elasticsearch 6.4.3 instance
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
-    container_name: wine-elastic
+    #container_name: wine-elastic
     restart: unless-stopped
     ports:
       - "9200:9200"
@@ -43,7 +43,7 @@ services:
     depends_on:
      - pgdb
      - elastic
-    container_name: wine-manager
+    #container_name: wine-manager
 
   # bokeh application
   bokeh:
@@ -51,7 +51,7 @@ services:
     restart: unless-stopped
     depends_on:
      - manager
-    container_name: wine-bokeh
+    #container_name: wine-bokeh
     ports:
       - "5001:5000"
 
