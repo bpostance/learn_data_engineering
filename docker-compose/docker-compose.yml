@@ -18,7 +18,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    
+      networks:
+        - winenet
   # elasticsearch 6.4.3 instance
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
@@ -36,6 +37,8 @@ services:
       memlock:
         soft: -1
         hard: -1
+    networks:
+      - winenet
         
   # manager application
   manager:
@@ -44,16 +47,20 @@ services:
      - pgdb
      - elastic
     #container_name: wine-manager
+    networks:
+      - winenet
 
   # bokeh application
   bokeh:
     build: ./bokeh
     restart: unless-stopped
     depends_on:
-     - manager
+     - pgdb
     #container_name: wine-bokeh
     ports:
       - "5001:5000"
+    networks:
+      - winenet
 
 # volumes to create
 # by specifying names here
@@ -63,3 +70,7 @@ services:
 volumes:
   postgres_volume:
   es_volume:
+
+networks:
+  winenet:
+    driver: bridge
