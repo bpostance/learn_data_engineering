@@ -19,17 +19,17 @@ def connect_to_postgres(server_string,db_name):
 
 try:
     # create db on server
-    server_string = "postgresql+psycopg2://postgres@wine-postgres:5432"
+    server_string = "postgresql+psycopg2://postgres@pgdb"
     db_name = 'db'
 
-    conn = connect_to_postgres(server_string,'')
-    conn.execute("commit")
+    #conn = connect_to_postgres(server_string,'')
+    #conn.execute("commit")
 
-    try:
-        conn.execute(f"create database {db_name}")
-    except:
-        pass
-    conn.close()
+    #try:
+    #    conn.execute(f"create database {db_name}")
+    #except:
+    #    pass
+    #conn.close()
 
     # read data 
     df = pd.read_csv('/home/working-dir/data/wine-reviews/winemag-data-130k-v2.csv',index_col=0)
@@ -42,5 +42,5 @@ try:
           chunksize=5000)
 
     print('Upload Data Done')
-except:
+except Exception as error:
     print('db fail')

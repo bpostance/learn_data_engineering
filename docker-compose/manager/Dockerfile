@@ -41,4 +41,4 @@ RUN conda update -n base -c defaults conda && \
     echo "conda activate" >> ~/.bashrc
 
 # Command 
-RUN python /home/working-dir/manager-py/main.py
+CMD ["python","/home/working-dir/manager-py/main.py"]
