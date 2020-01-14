@@ -35,7 +35,8 @@ RUN chmod +x ./manager-py/gdrive.sh && \
 RUN ls -a /home/working-dir
 
 # conda set-config and create environment based on .yml
-RUN conda env update --file ./manager-py/environment.yml && \
+RUN conda update -n base -c defaults conda && \
+    conda env update --file ./manager-py/environment.yml && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate" >> ~/.bashrc
 
