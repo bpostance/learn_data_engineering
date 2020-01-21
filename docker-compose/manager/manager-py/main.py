@@ -6,6 +6,7 @@ import time
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
+from elasticsearch import Elasticsearch, helpers
 
 print('manager.py is running')
 print(f'cwd: {os.getcwd()}')
@@ -44,10 +45,23 @@ def upload_data(db_name='db'):
                 index=False,
                 if_exists='replace',
                 chunksize=10000)
-
     conn.close()
     engine.dispose()
-    print("\tdone")
+    print("\tdata uploaded to db.")
+
+    # upload to elastic
+    print("\tupload to elastic...")
+    df.fillna(value=0,inplace=True)
+    es = Elasticsearch([{'host':'192.168.1.156','port':9200}])
+    actions = [{
+                "_index": "wine-reviews",
+                "_type": "review",
+                "_id": k,
+                "_source": v
+                }
+                for k,v in df[:1].to_dict(orient='index').items()]
+    helpers.bulk(es, actions)
+    print("\tindexed in elastic.")
 
 if __name__ == "__main__":
     create_db()
