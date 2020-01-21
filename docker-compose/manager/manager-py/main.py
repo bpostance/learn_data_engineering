@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """main.py: Populates database and elasticsearch with wine-data"""
 
 import os
@@ -21,13 +20,14 @@ def create_db(db_name='db'):
     print("\tcreating db on server")
     try:
         engine = connect_to_postgres(server_string,'')
-        connection = engine.connect()
+        conn = engine.connect()
         conn.execute("commit")
         conn.execute(f"\t\tcreate database {db_name}")
+        conn.close()
+        engine.dispose()
     except:
         print(f'\t\tdb exists: {db_name}')
-    conn.close()
-    engine.dispose()
+        pass
 
 def upload_data(db_name='db'):
     print("\tuploading data to db...")
@@ -35,7 +35,7 @@ def upload_data(db_name='db'):
     engine = connect_to_postgres(server_string,db_name)
     conn = engine.connect()
 
-    # read data 
+    # read data
     df = pd.read_csv('/home/working-dir/data/wine-reviews/winemag-data-130k-v2.csv',index_col=0)
 
     # push data to db
