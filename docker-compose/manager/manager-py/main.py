@@ -11,24 +11,26 @@ from sqlalchemy import create_engine
 print('manager.py is running')
 print(f'cwd: {os.getcwd()}')
 
-def connect_to_postgres(server_string,db_name):
+def connect_to_postgres(server_string="postgresql+psycopg2://postgres:postgres@192.168.1.156:5433",
+                        db_name='db'):
     """connect to postgres"""
     engine = create_engine('{}/{}'.format(server_string,db_name))
     return engine
 
-def create_db(db_name):
-    # create db on server
+def create_db(db_name='db'):
+    print("\tcreating db on server")
     try:
         engine = connect_to_postgres(server_string,'')
         connection = engine.connect()
         conn.execute("commit")
-        conn.execute(f"create database {db_name}")
+        conn.execute(f"\t\tcreate database {db_name}")
     except:
-        print(f'db exists: {db_name}')
+        print(f'\t\tdb exists: {db_name}')
     conn.close()
     engine.dispose()
 
-def upload_data(db_name):
+def upload_data(db_name='db'):
+    print("\tuploading data to db...")
     server_string = "postgresql+psycopg2://postgres:postgres@192.168.1.156:5433"
     engine = connect_to_postgres(server_string,db_name)
     conn = engine.connect()
@@ -41,7 +43,12 @@ def upload_data(db_name):
                 con=conn,
                 index=False,
                 if_exists='replace',
-                chunksize=5000)
+                chunksize=10000)
 
     conn.close()
     engine.dispose()
+    print("\tdone")
+
+if __name__ == "__main__":
+    create_db()
+    upload_data()
