@@ -1,6 +1,6 @@
 {
     "mappings":{
-      "entity":{
+      "review":{
         "properties":{
           "description":{
             "type":"text",

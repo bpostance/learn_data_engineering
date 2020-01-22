@@ -72,9 +72,9 @@ def upload_data(db_name='db',index_name='wine-reviews'):
                 "_index": index_name,
                 "_type": "review",
                 "_id": k,
-                "_source": v['description']
+                "_source": v
                 }
-                for k,v in df.to_dict(orient='index').items()]
+                for k,v in df[['description']].to_dict(orient='index').items()]
     helpers.bulk(es, actions)
     print("\tindexed in elastic.")
 
