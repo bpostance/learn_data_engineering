@@ -1,0 +1,30 @@
+{
+    "mappings":{
+      "entity":{
+        "properties":{
+          "description":{
+            "type":"text",
+            "fields":{
+              "keyword":{
+                "type":"keyword"
+              }
+            }
+            
+          }
+        }
+      }
+    },
+    "settings":{
+      "index":{
+        "number_of_shards": "1",
+        "analysis":{
+          "char_filter":{
+            "char_filter_punct":{
+              "type": "mapping",
+              "mappings": [ ". => ", ", => "]
+            }
+          }
+        }
+      }
+    }
+  }
