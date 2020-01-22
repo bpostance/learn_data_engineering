@@ -34,7 +34,7 @@ plot = figure(plot_height=400, plot_width=400, title="my sine wave",
               tools="crosshair,pan,reset,save,wheel_zoom",
               x_range=[0, 4*np.pi], y_range=[-2.5, 2.5])
 
-plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
+plot.line('x', 'y', source=source, line_width=2, line_alpha=0.6)
 
 
 # Set up widgets

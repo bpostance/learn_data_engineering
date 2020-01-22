@@ -17,6 +17,18 @@ def connect_to_postgres(server_string="postgresql+psycopg2://postgres:postgres@1
     engine = create_engine('{}/{}'.format(server_string,db_name))
     return engine
 
+def create_index(elastic_instance,index_name):
+    # create index with settings file
+    import json
+    with open('./manager-py/elastic-settings.json') as jsfile:
+        indexsettings = json.load(jsfile)
+    
+    try: 
+        elastic_instance.indices.create(index=index_name,body=indexsettings)
+    except Exception as error:
+        print(error)
+        pass
+
 def create_db(db_name='db'):
     print("\tcreating db on server")
     try:
@@ -30,7 +42,7 @@ def create_db(db_name='db'):
         print(f'\t\tdb exists: {db_name}')
         pass
 
-def upload_data(db_name='db'):
+def upload_data(db_name='db',index_name='wine-reviews'):
     print("\tuploading data to db...")
     server_string = "postgresql+psycopg2://postgres:postgres@192.168.1.156:5433"
     engine = connect_to_postgres(server_string,db_name)
@@ -42,7 +54,7 @@ def upload_data(db_name='db'):
     # push data to db
     df.to_sql(name='wine_reviews',
                 con=conn,
-                index=False,
+                index=True,
                 if_exists='replace',
                 chunksize=10000)
     conn.close()
@@ -53,13 +65,16 @@ def upload_data(db_name='db'):
     print("\tupload to elastic...")
     df.fillna(value=0,inplace=True)
     es = Elasticsearch([{'host':'192.168.1.156','port':9200}])
+    
+    create_index(es,index_name=index_name)
+
     actions = [{
-                "_index": "wine-reviews",
+                "_index": index_name,
                 "_type": "review",
                 "_id": k,
-                "_source": v
+                "_source": v['description']
                 }
-                for k,v in df[:1].to_dict(orient='index').items()]
+                for k,v in df.to_dict(orient='index').items()]
     helpers.bulk(es, actions)
     print("\tindexed in elastic.")
 
