@@ -1,0 +1,63 @@
+version: '3'
+services:
+
+  # postgres10 database
+  pgdb:
+    image: postgres:10
+    #container_name: wine-postgres
+    restart: unless-stopped
+    # specify port mapping (host:container)
+    ports:
+            - "5433:5432/tcp"
+    # volumes are created at build if they dont already exists
+    # existing volumes are added to provide data persistance
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    # env vars from .env 
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  # elasticsearch 6.4.3 instance
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+    #container_name: wine-elastic
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_volume:/usr/share/elasticsearch/data
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1000m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+        
+  # manager application
+  manager:
+    build: ./manager
+    depends_on:
+     - pgdb
+
+  # bokeh application
+  bokeh:
+    build: ./bokeh
+    restart: unless-stopped
+    depends_on:
+     - pgdb
+    #container_name: wine-bokeh
+    ports:
+      - "5001:5000"
+
+# volumes to create
+# by specifying names here
+# docker will re-use these local 
+# volumes next time the containers are built.
+# rather than creating new volumes each build.
+volumes:
+  postgres_volume:
+  es_volume:
