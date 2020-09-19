@@ -1,0 +1,209 @@
+# show indexes
+GET /_cat/indices?
+
+# delete index
+DELETE /insured_policies_v01
+
+# create test index
+PUT /insured_policies_v01?pretty
+
+# push test doc to index
+PUT /insured_policies_v01/entity/0001?pretty
+{
+  "insured_name": "ABC Corp",
+  "policies":["p1","p2"]
+}
+
+# delete document
+DELETE /insured_policies_v01/entity/0001?
+
+# basic search
+GET /insured_policies_v01/_search
+{
+    "query": {
+        "match_all": { "boost" : 1.2 }
+    }
+}
+
+# term search
+GET /insured_policies_v01/_search
+{
+    "query": {
+        "match" : {
+            "insured_name" : "australia Banking Group Ltd"
+        }
+    }
+}
+
+# keyword and term search
+GET /insured_policies_v01/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "insured_name": {
+              "query": "Audigy Group inc Audigy Medical inc Audigy Venture Group inc"
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "match": {
+            "insured_name.keyword": "Audigy Group inc Audigy Medical inc Audigy Venture Group inc"
+          }
+        }
+      ]
+    }
+  }
+}
+
+# put settings & mappings
+PUT insured_policies_v01
+{
+  "mappings":{
+    "entity":{
+      "properties":{
+        "insured_name":{
+          "type":"text",
+          "analyzer": "insured_name_analyzer",
+          "fields":{
+            "keyword":{
+              "type":"keyword",
+              "normalizer": "insured_name_normalizer"
+            }
+          }
+          
+        },
+        "policies":{
+          "type":"text"
+        }
+      }
+    }
+  },
+  "settings":{
+    "index":{
+      "number_of_shards": "1",
+      "analysis":{
+        "char_filter":{
+          "char_replace":{
+            "type": "mapping",
+            "mappings": [ ". => ", ", => "]
+          }
+        },
+        "filter":{
+          "company_synonyms":{
+            "type": "synonym",
+            "synonyms": [
+              "company, incorporated, corporation, corp., corp, inc,& co., & co, inc., s.p.a., n.v., a.g., ag, nuf, s.a., s.f.,oao, co., co",
+              "general partnership, ltda",
+              "unltd, ultd, sal, unlimited, saog, saoc, aj,yoaj, oaj, akc. spol., a.s.",
+              "joint venture, esv, gie, kv., qk",
+              "pty. ltd., pty ltd, ltd, l.t.d., bvba, d.o.o., ltda, gmbh,g.m.b.h, kft., kht., zrt., ehf., s.a.r.l., d.o.o.e.l., s. de r.l.,b.v., tapui, sp. z.o.o., s.r.l., s.l., s.l.n.e., ood, oy, rt.,teo, uab, scs, sprl, limited, bhd., sdn. bhd., sdn bhd,lda., tov, pp",
+              "limited liability company, pllc, llc, l.l.c., plc., plc, hf., oyj,a.e., nyrt., p.l.c., sh.a., s.a., s.r.l., srl., aat, 3at, d.d.,s.r.o., spol. s r.o., s.m.b.a., smba, sarl, nv, sa, aps, p/s, sae, sasu, eurl, ae, cpt, ab, asa, ooo, dat,vat, zat, mchj, a.d.",
+              "limited liability limited partnership, lllp, l.l.l.p.",
+              "limited liability partnership, llp, l.l.p., sp.p., s.c.a., s.c.s.",
+              "limited partnership, gmbh & co. kg, gmbh & co. kg, lp, l.p., s.c.s.,s.c.p.a, comm.v, k.d., k.d.a., s. en c., e.e., s.a.s., s. en c.,c.v., s.k.a., sp.k., s.cra., ky, scs, kg, kd, k/s, ee, secs,kda, ks, kb,kt",
+              "mutual fund, sicav",
+              "non-profit, vzw, ses., gte.",
+              "private company, private, pte, xk",
+              "professional corporation, p.c., vof, snc",
+              "professional limited liability company, pllc, p.l.l.c.",
+              "sole proprietorship, e.u., s.p., t:mi, tmi, e.v., e.c., et, obrt,fie, ij, fop, xt",
+              "insurance company, ins co, ins co"
+            ]
+            
+          }
+        },
+        "analyzer":{
+          "insured_name_analyzer":{
+            "type":"custom",
+            "filter":[
+              "lowercase",
+              "stop",
+              "asciifolding",
+              "company_synonyms"
+              ],
+            "tokenizer":"standard"
+          }
+        },
+        "normalizer":{
+          "insured_name_normalizer":{
+            "type":"custom",
+            "char_filter":[
+              "char_replace"
+              ],
+              "filter":[
+                "lowercase",
+                "asciifolding"]
+          }
+        }
+      }
+    }
+  }
+}
+
+# duplicate index to new index
+# new index needs to be set up first!
+POST _reindex
+{
+  "source": {
+    "index": "insured_policies_v01"
+  },
+  "dest": {
+    "index": "insured_policies_v02"
+  }
+}
+
+# get settings
+GET /insured_policies_v01/_settings/
+# get mappings
+GET /insured_policies_v01/_mapping/
+
+### UPDATE INDEX TO HAVE Auto-Compeltion
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/search-analyzer.html
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/_index_time_search_as_you_type.html
+### Add Autocompelte settings
+#close index
+POST /insured_policies_v1/_close
+# add settings
+PUT insured_policies_v1/_settings
+{
+  "analysis": {
+            "filter": {
+                "autocomplete_filter": { 
+                    "type":     "edge_ngram",
+                    "min_gram": 1,
+                    "max_gram": 20
+                }
+            },
+            "analyzer": {
+                "autocomplete": {
+                    "type":      "custom",
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase",
+                        "autocomplete_filter" 
+                    ]
+                }
+            }
+        }
+}
+# open index 
+POST /insured_policies_v1/_open
+
+### Add field mapping 
+PUT /insured_policies_v1/_mapping/entity
+{
+    "entity": {
+        "properties": {
+            "insured_name": {
+                "type":     "text",
+                "analyzer": "insured_name_analyzer",
+                "search_analyzer": "autocomplete"
+            }
+        }
+    }
+}
