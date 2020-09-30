@@ -1,0 +1,7 @@
+# geo files
+*.hdf
+*.tif
+
+#
+*.env
+.ipynb_checkpoints
