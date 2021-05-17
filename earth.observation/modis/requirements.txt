@@ -1,7 +1,4 @@
 geopandas
-pyhdf
 rasterio
 earthpy
 matplotlib
-descartes
-leaflet
