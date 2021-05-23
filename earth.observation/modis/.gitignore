@@ -1,6 +1,12 @@
 # geo files
 *.hdf
 *.tif
+*.hdf
+*.aux.xml
+*.zip
+
+
+
 
 #
 *.env
