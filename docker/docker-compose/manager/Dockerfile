@@ -26,9 +26,9 @@ ADD manager-py ./manager-py
 # OR from google
 # https://drive.google.com/file/d/1pqZvEIMKehdoiCNaob2HutHTdvCbtLub/view?usp=sharing
 RUN chmod +x ./manager-py/gdrive.sh && \
-    ./manager-py/gdrive.sh && \
-    unzip ./wine-reviews.zip && \
-    rm ./wine-reviews.zip && \
+#    #./manager-py/gdrive.sh && \
+    unzip ./manager-py/wine-reviews.zip && \
+    rm ./manager-py/wine-reviews.zip && \
     mkdir ./data && \
     mv ./wine-reviews ./data/wine-reviews
 
