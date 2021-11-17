@@ -4,6 +4,11 @@ Why Minikube? You can run a local kubernetes intance from docker-desktop or Kind
 
 ## installation steps
 
+>Windows
+ - install [chocolatey](https://chocolatey.org/install)
+ - '''choco install kubernetes-helm'''
+ 
+
 ### 1. Install Docker
 [see steps here for debian systems](https://techviewleo.com/how-to-install-and-use-docker-in-linux-mint/). Once complete you should see your docker version with:
 
