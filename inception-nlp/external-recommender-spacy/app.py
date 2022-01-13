@@ -1,37 +1,28 @@
 import base64
 from collections import namedtuple
 from typing import Any, Dict
-
 from flask import Flask, request, jsonify
-
 from cassis import *
-
 import spacy
 from spacy.tokens import Doc
 
 # Types
-
 JsonDict = Dict[str, Any]
-
 PredictionRequest = namedtuple("PredictionRequest", ["layer", "feature", "projectId", "document", "typeSystem"])
 PredictionResponse = namedtuple("PredictionResponse", ["document"])
 Document = namedtuple("Document", ["xmi", "documentId", "userId"])
 
 # Constants
-
 SENTENCE_TYPE = "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence"
 TOKEN_TYPE = "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token"
 
 # Models
-
 #import en_core_web_sm
 #nlp = en_core_web_sm.load(disable=['parser'])
 nlp = spacy.load("en_core_web_md", disable=['parser'])
 
 # Routes
-
 app = Flask(__name__)
-
 
 @app.route("/ner/predict", methods=["POST"])
 def route_predict_ner():
